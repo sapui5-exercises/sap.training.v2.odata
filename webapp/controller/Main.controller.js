@@ -39,7 +39,7 @@ sap.ui.define([
 				},
 				error: function(oError) {
 					var oMsg = JSON.parse(oError.responseText);
-					sap.m.MessageBox.error(oMsg.error.innererror.errordetails[0].message, {
+					MessageBox.error(oMsg.error.innererror.errordetails[0].message, {
 						details: oMsg
 					});
 				}
@@ -73,7 +73,7 @@ sap.ui.define([
 				},
 				error: function(oError) {
 					var oMsg = JSON.parse(oError.responseText);
-					sap.m.MessageBox.error(oMsg.error.innererror.errordetails[0].message, {
+					MessageBox.error(oMsg.error.innererror.errordetails[0].message, {
 						details: oMsg
 					});
 				}
