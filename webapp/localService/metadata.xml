@@ -1,0 +1,352 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:Reference
+        xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Uri="./IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='S4HANA')/$value">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZTRAVEL_SRV" xml:lang="en" sap:schema-version="1">
+            <EntityType Name="ZBC_C_Booking_TPType" sap:label="Booking" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                    <PropertyRef Name="Fldate"/>
+                    <PropertyRef Name="Bookid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Airline" sap:quickinfo="Airline Code"/>
+                <Property Name="Passname" Type="Edm.String" MaxLength="25" sap:label="Passenger Name" sap:quickinfo="Name of the Passenger"/>
+                <Property Name="Reserved" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Reservation flag"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Connection Number" sap:quickinfo="Flight Connection Number"/>
+                <Property Name="Fldate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Flight Date" sap:quickinfo="Flight date"/>
+                <Property Name="Bookid" Type="Edm.String" Nullable="false" MaxLength="8" sap:display-format="NonNegative" sap:label="Booking number"/>
+                <Property Name="Cancelled" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Cancelation flag"/>
+                <Property Name="Class" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Class" sap:quickinfo="Flight Class"/>
+                <Property Name="Counter" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="Sales office" sap:quickinfo="Number of sales office"/>
+                <Property Name="Customid" Type="Edm.String" MaxLength="8" sap:display-format="NonNegative" sap:label="Customer Number"/>
+                <Property Name="OrderDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Posting date" sap:quickinfo="Booking Date"/>
+                <NavigationProperty Name="to_Carrier" Relationship="ZTRAVEL_SRV.assoc_8AEE5053E10B08459EDCE9D963A0706D" FromRole="FromRole_assoc_8AEE5053E10B08459EDCE9D963A0706D" ToRole="ToRole_assoc_8AEE5053E10B08459EDCE9D963A0706D"/>
+                <NavigationProperty Name="to_Connection" Relationship="ZTRAVEL_SRV.assoc_EB1FED34B5A123484F362E9EF2F2FA3B" FromRole="FromRole_assoc_EB1FED34B5A123484F362E9EF2F2FA3B" ToRole="ToRole_assoc_EB1FED34B5A123484F362E9EF2F2FA3B"/>
+                <NavigationProperty Name="to_Flight" Relationship="ZTRAVEL_SRV.assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8" FromRole="FromRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8" ToRole="ToRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8"/>
+            </EntityType>
+            <EntityType Name="ZBC_C_Carrier_TPType" sap:label="Carrier" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Airline" sap:quickinfo="Airline Code"/>
+                <Property Name="Carrname" Type="Edm.String" MaxLength="20" sap:label="Airline" sap:quickinfo="Airline name"/>
+                <Property Name="Currcode" Type="Edm.String" MaxLength="5" sap:label="Airline Currency" sap:quickinfo="Local currency of airline" sap:semantics="currency-code"/>
+                <Property Name="Url" Type="Edm.String" MaxLength="255" sap:label="Airline URL"/>
+                <NavigationProperty Name="to_Booking" Relationship="ZTRAVEL_SRV.assoc_54D9AE59FC85A540C99ACFCDB325B21F" FromRole="FromRole_assoc_54D9AE59FC85A540C99ACFCDB325B21F" ToRole="ToRole_assoc_54D9AE59FC85A540C99ACFCDB325B21F"/>
+                <NavigationProperty Name="to_Connection" Relationship="ZTRAVEL_SRV.assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB" FromRole="FromRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB" ToRole="ToRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB"/>
+                <NavigationProperty Name="to_Flight" Relationship="ZTRAVEL_SRV.assoc_CF77915DCDEA442F55FB46C46F3D2ED6" FromRole="FromRole_assoc_CF77915DCDEA442F55FB46C46F3D2ED6" ToRole="ToRole_assoc_CF77915DCDEA442F55FB46C46F3D2ED6"/>
+            </EntityType>
+            <EntityType Name="ZBC_C_Connection_TPType" sap:label="Flight Connection" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Airline" sap:quickinfo="Airline Code"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Connection Number" sap:quickinfo="Flight Connection Number"/>
+                <Property Name="Cityfrom" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Depart. city" sap:quickinfo="Departure city"/>
+                <Property Name="Airpfrom" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Departure airport"/>
+                <Property Name="Cityto" Type="Edm.String" MaxLength="20" sap:display-format="UpperCase" sap:label="Arrival city"/>
+                <Property Name="Airpto" Type="Edm.String" MaxLength="3" sap:display-format="UpperCase" sap:label="Destination airport"/>
+                <Property Name="Deptime" Type="Edm.Time" Precision="0" sap:label="Departure time"/>
+                <Property Name="Arrtime" Type="Edm.Time" Precision="0" sap:label="Arrival Time" sap:quickinfo="Arrival time"/>
+                <NavigationProperty Name="to_Booking" Relationship="ZTRAVEL_SRV.assoc_216A61AC2A797CC5FD172777B7AF05E2" FromRole="FromRole_assoc_216A61AC2A797CC5FD172777B7AF05E2" ToRole="ToRole_assoc_216A61AC2A797CC5FD172777B7AF05E2"/>
+                <NavigationProperty Name="to_Carrier" Relationship="ZTRAVEL_SRV.assoc_31095AD29BEC0B8395DD78D035A9C41C" FromRole="FromRole_assoc_31095AD29BEC0B8395DD78D035A9C41C" ToRole="ToRole_assoc_31095AD29BEC0B8395DD78D035A9C41C"/>
+                <NavigationProperty Name="to_Flight" Relationship="ZTRAVEL_SRV.assoc_40428459C38731F4C6191190F1475740" FromRole="FromRole_assoc_40428459C38731F4C6191190F1475740" ToRole="ToRole_assoc_40428459C38731F4C6191190F1475740"/>
+            </EntityType>
+            <EntityType Name="ZBC_C_Flight_TPType" sap:label="Flight" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Carrid"/>
+                    <PropertyRef Name="Connid"/>
+                    <PropertyRef Name="Fldate"/>
+                </Key>
+                <Property Name="Carrid" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Airline" sap:quickinfo="Airline Code"/>
+                <Property Name="Connid" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="NonNegative" sap:label="Connection Number" sap:quickinfo="Flight Connection Number"/>
+                <Property Name="Fldate" Type="Edm.DateTime" Nullable="false" Precision="0" sap:display-format="Date" sap:label="Flight Date" sap:quickinfo="Flight date"/>
+                <Property Name="Seatsmax" Type="Edm.Int32" sap:label="Max. capacity econ." sap:quickinfo="Maximum capacity in economy class"/>
+                <Property Name="Seatsocc" Type="Edm.Int32" sap:label="Occupied econ." sap:quickinfo="Occupied seats in economy class"/>
+                <NavigationProperty Name="to_Booking" Relationship="ZTRAVEL_SRV.assoc_3A9FC3BBF4171556315E64659EABB964" FromRole="FromRole_assoc_3A9FC3BBF4171556315E64659EABB964" ToRole="ToRole_assoc_3A9FC3BBF4171556315E64659EABB964"/>
+                <NavigationProperty Name="to_Carrier" Relationship="ZTRAVEL_SRV.assoc_432745DFE0CCD086C7223E1012CD6F7A" FromRole="FromRole_assoc_432745DFE0CCD086C7223E1012CD6F7A" ToRole="ToRole_assoc_432745DFE0CCD086C7223E1012CD6F7A"/>
+                <NavigationProperty Name="to_Connection" Relationship="ZTRAVEL_SRV.assoc_1A57D187F7101EA998F13390BF66AB48" FromRole="FromRole_assoc_1A57D187F7101EA998F13390BF66AB48" ToRole="ToRole_assoc_1A57D187F7101EA998F13390BF66AB48"/>
+            </EntityType>
+            <Association Name="assoc_54D9AE59FC85A540C99ACFCDB325B21F" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" Multiplicity="1" Role="FromRole_assoc_54D9AE59FC85A540C99ACFCDB325B21F"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Booking_TPType" Multiplicity="*" Role="ToRole_assoc_54D9AE59FC85A540C99ACFCDB325B21F"/>
+            </Association>
+            <Association Name="assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" Multiplicity="1" Role="FromRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Connection_TPType" Multiplicity="*" Role="ToRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB">
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB">
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_CF77915DCDEA442F55FB46C46F3D2ED6" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" Multiplicity="1" Role="FromRole_assoc_CF77915DCDEA442F55FB46C46F3D2ED6"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Flight_TPType" Multiplicity="*" Role="ToRole_assoc_CF77915DCDEA442F55FB46C46F3D2ED6"/>
+            </Association>
+            <Association Name="assoc_216A61AC2A797CC5FD172777B7AF05E2" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Connection_TPType" Multiplicity="1" Role="FromRole_assoc_216A61AC2A797CC5FD172777B7AF05E2"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Booking_TPType" Multiplicity="*" Role="ToRole_assoc_216A61AC2A797CC5FD172777B7AF05E2"/>
+            </Association>
+            <Association Name="assoc_31095AD29BEC0B8395DD78D035A9C41C" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Connection_TPType" Multiplicity="1" Role="FromRole_assoc_31095AD29BEC0B8395DD78D035A9C41C"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" Multiplicity="0..1" Role="ToRole_assoc_31095AD29BEC0B8395DD78D035A9C41C"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_31095AD29BEC0B8395DD78D035A9C41C">
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_31095AD29BEC0B8395DD78D035A9C41C">
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_40428459C38731F4C6191190F1475740" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Connection_TPType" Multiplicity="1" Role="FromRole_assoc_40428459C38731F4C6191190F1475740"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Flight_TPType" Multiplicity="*" Role="ToRole_assoc_40428459C38731F4C6191190F1475740"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_40428459C38731F4C6191190F1475740">
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_40428459C38731F4C6191190F1475740">
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_EB1FED34B5A123484F362E9EF2F2FA3B" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Booking_TPType" Multiplicity="1" Role="FromRole_assoc_EB1FED34B5A123484F362E9EF2F2FA3B"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Connection_TPType" Multiplicity="0..1" Role="ToRole_assoc_EB1FED34B5A123484F362E9EF2F2FA3B"/>
+            </Association>
+            <Association Name="assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Booking_TPType" Multiplicity="1" Role="FromRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Flight_TPType" Multiplicity="0..1" Role="ToRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8">
+                        <PropertyRef Name="Fldate"/>
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8">
+                        <PropertyRef Name="Fldate"/>
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_8AEE5053E10B08459EDCE9D963A0706D" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Booking_TPType" Multiplicity="1" Role="FromRole_assoc_8AEE5053E10B08459EDCE9D963A0706D"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" Multiplicity="0..1" Role="ToRole_assoc_8AEE5053E10B08459EDCE9D963A0706D"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_8AEE5053E10B08459EDCE9D963A0706D">
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_8AEE5053E10B08459EDCE9D963A0706D">
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_3A9FC3BBF4171556315E64659EABB964" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Flight_TPType" Multiplicity="1" Role="FromRole_assoc_3A9FC3BBF4171556315E64659EABB964"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Booking_TPType" Multiplicity="*" Role="ToRole_assoc_3A9FC3BBF4171556315E64659EABB964"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_assoc_3A9FC3BBF4171556315E64659EABB964">
+                        <PropertyRef Name="Fldate"/>
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="ToRole_assoc_3A9FC3BBF4171556315E64659EABB964">
+                        <PropertyRef Name="Fldate"/>
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_432745DFE0CCD086C7223E1012CD6F7A" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Flight_TPType" Multiplicity="1" Role="FromRole_assoc_432745DFE0CCD086C7223E1012CD6F7A"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" Multiplicity="0..1" Role="ToRole_assoc_432745DFE0CCD086C7223E1012CD6F7A"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_432745DFE0CCD086C7223E1012CD6F7A">
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_432745DFE0CCD086C7223E1012CD6F7A">
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_1A57D187F7101EA998F13390BF66AB48" sap:content-version="1">
+                <End Type="ZTRAVEL_SRV.ZBC_C_Flight_TPType" Multiplicity="1" Role="FromRole_assoc_1A57D187F7101EA998F13390BF66AB48"/>
+                <End Type="ZTRAVEL_SRV.ZBC_C_Connection_TPType" Multiplicity="0..1" Role="ToRole_assoc_1A57D187F7101EA998F13390BF66AB48"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_1A57D187F7101EA998F13390BF66AB48">
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_1A57D187F7101EA998F13390BF66AB48">
+                        <PropertyRef Name="Connid"/>
+                        <PropertyRef Name="Carrid"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZTRAVEL_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="ZBC_C_Booking_TP" EntityType="ZTRAVEL_SRV.ZBC_C_Booking_TPType" sap:content-version="1"/>
+                <EntitySet Name="ZBC_C_Carrier_TP" EntityType="ZTRAVEL_SRV.ZBC_C_Carrier_TPType" sap:content-version="1"/>
+                <EntitySet Name="ZBC_C_Connection_TP" EntityType="ZTRAVEL_SRV.ZBC_C_Connection_TPType" sap:content-version="1"/>
+                <EntitySet Name="ZBC_C_Flight_TP" EntityType="ZTRAVEL_SRV.ZBC_C_Flight_TPType" sap:content-version="1"/>
+                <AssociationSet Name="assoc_CF77915DCDEA442F55FB46C46F3D2ED6" Association="ZTRAVEL_SRV.assoc_CF77915DCDEA442F55FB46C46F3D2ED6" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Carrier_TP" Role="FromRole_assoc_CF77915DCDEA442F55FB46C46F3D2ED6"/>
+                    <End EntitySet="ZBC_C_Flight_TP" Role="ToRole_assoc_CF77915DCDEA442F55FB46C46F3D2ED6"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_432745DFE0CCD086C7223E1012CD6F7A" Association="ZTRAVEL_SRV.assoc_432745DFE0CCD086C7223E1012CD6F7A" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Flight_TP" Role="FromRole_assoc_432745DFE0CCD086C7223E1012CD6F7A"/>
+                    <End EntitySet="ZBC_C_Carrier_TP" Role="ToRole_assoc_432745DFE0CCD086C7223E1012CD6F7A"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_54D9AE59FC85A540C99ACFCDB325B21F" Association="ZTRAVEL_SRV.assoc_54D9AE59FC85A540C99ACFCDB325B21F" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Carrier_TP" Role="FromRole_assoc_54D9AE59FC85A540C99ACFCDB325B21F"/>
+                    <End EntitySet="ZBC_C_Booking_TP" Role="ToRole_assoc_54D9AE59FC85A540C99ACFCDB325B21F"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_8AEE5053E10B08459EDCE9D963A0706D" Association="ZTRAVEL_SRV.assoc_8AEE5053E10B08459EDCE9D963A0706D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Booking_TP" Role="FromRole_assoc_8AEE5053E10B08459EDCE9D963A0706D"/>
+                    <End EntitySet="ZBC_C_Carrier_TP" Role="ToRole_assoc_8AEE5053E10B08459EDCE9D963A0706D"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_1A57D187F7101EA998F13390BF66AB48" Association="ZTRAVEL_SRV.assoc_1A57D187F7101EA998F13390BF66AB48" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Flight_TP" Role="FromRole_assoc_1A57D187F7101EA998F13390BF66AB48"/>
+                    <End EntitySet="ZBC_C_Connection_TP" Role="ToRole_assoc_1A57D187F7101EA998F13390BF66AB48"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_3A9FC3BBF4171556315E64659EABB964" Association="ZTRAVEL_SRV.assoc_3A9FC3BBF4171556315E64659EABB964" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Flight_TP" Role="FromRole_assoc_3A9FC3BBF4171556315E64659EABB964"/>
+                    <End EntitySet="ZBC_C_Booking_TP" Role="ToRole_assoc_3A9FC3BBF4171556315E64659EABB964"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_216A61AC2A797CC5FD172777B7AF05E2" Association="ZTRAVEL_SRV.assoc_216A61AC2A797CC5FD172777B7AF05E2" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Connection_TP" Role="FromRole_assoc_216A61AC2A797CC5FD172777B7AF05E2"/>
+                    <End EntitySet="ZBC_C_Booking_TP" Role="ToRole_assoc_216A61AC2A797CC5FD172777B7AF05E2"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_31095AD29BEC0B8395DD78D035A9C41C" Association="ZTRAVEL_SRV.assoc_31095AD29BEC0B8395DD78D035A9C41C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Connection_TP" Role="FromRole_assoc_31095AD29BEC0B8395DD78D035A9C41C"/>
+                    <End EntitySet="ZBC_C_Carrier_TP" Role="ToRole_assoc_31095AD29BEC0B8395DD78D035A9C41C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_40428459C38731F4C6191190F1475740" Association="ZTRAVEL_SRV.assoc_40428459C38731F4C6191190F1475740" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Connection_TP" Role="FromRole_assoc_40428459C38731F4C6191190F1475740"/>
+                    <End EntitySet="ZBC_C_Flight_TP" Role="ToRole_assoc_40428459C38731F4C6191190F1475740"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB" Association="ZTRAVEL_SRV.assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Carrier_TP" Role="FromRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB"/>
+                    <End EntitySet="ZBC_C_Connection_TP" Role="ToRole_assoc_77E2FAB28B8EFBB72E4D6DD23FEAC6BB"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8" Association="ZTRAVEL_SRV.assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Booking_TP" Role="FromRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8"/>
+                    <End EntitySet="ZBC_C_Flight_TP" Role="ToRole_assoc_957C8807F0B7EFC34CEBFBA9ACA72EE8"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_EB1FED34B5A123484F362E9EF2F2FA3B" Association="ZTRAVEL_SRV.assoc_EB1FED34B5A123484F362E9EF2F2FA3B" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="ZBC_C_Booking_TP" Role="FromRole_assoc_EB1FED34B5A123484F362E9EF2F2FA3B"/>
+                    <End EntitySet="ZBC_C_Connection_TP" Role="ToRole_assoc_EB1FED34B5A123484F362E9EF2F2FA3B"/>
+                </AssociationSet>
+                <FunctionImport Name="CancelBooking" ReturnType="ZTRAVEL_SRV.ZBC_C_Booking_TPType" EntitySet="ZBC_C_Booking_TP" m:HttpMethod="POST" sap:action-for="ZTRAVEL_SRV.ZBC_C_Booking_TPType">
+                    <Parameter Name="Bookid" Type="Edm.String" Mode="In" MaxLength="8"/>
+                    <Parameter Name="Carrid" Type="Edm.String" Mode="In" MaxLength="3"/>
+                </FunctionImport>
+                <FunctionImport Name="ConfirmBooking" ReturnType="ZTRAVEL_SRV.ZBC_C_Booking_TPType" EntitySet="ZBC_C_Booking_TP" m:HttpMethod="POST" sap:action-for="ZTRAVEL_SRV.ZBC_C_Booking_TPType">
+                    <Parameter Name="Bookid" Type="Edm.String" Mode="In" MaxLength="8"/>
+                    <Parameter Name="Carrid" Type="Edm.String" Mode="In" MaxLength="3"/>
+                </FunctionImport>
+            </EntityContainer>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Booking_TPType/Carrid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Booking_TPType/Connid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Booking_TPType/Fldate">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Booking_TPType/Bookid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Carrier_TPType/Carrid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Carrier_TPType/Carrname">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Connection_TPType/Carrid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Connection_TPType/Connid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Flight_TPType/Carrid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Flight_TPType/Connid">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Flight_TPType/Fldate">
+                <Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Booking_TPType">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Bookid</PropertyPath>
+                        <PropertyPath>Fldate</PropertyPath>
+                        <PropertyPath>Connid</PropertyPath>
+                        <PropertyPath>Carrid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Carrier_TPType">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Carrid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Connection_TPType">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Connid</PropertyPath>
+                        <PropertyPath>Carrid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <Annotations
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="ZTRAVEL_SRV.ZBC_C_Flight_TPType">
+                <Annotation Term="Common.SemanticKey">
+                    <Collection>
+                        <PropertyPath>Fldate</PropertyPath>
+                        <PropertyPath>Connid</PropertyPath>
+                        <PropertyPath>Carrid</PropertyPath>
+                    </Collection>
+                </Annotation>
+            </Annotations>
+            <atom:link
+                xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZTRAVEL_SRV/$metadata"/>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZTRAVEL_SRV/$metadata"/>
+                </Schema>
+            </edmx:DataServices>
+        </edmx:Edmx>
