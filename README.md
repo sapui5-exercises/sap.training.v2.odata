@@ -1,0 +1,1 @@
+# sap.training.v2.odata
